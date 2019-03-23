@@ -7,6 +7,11 @@ body {
 	overflow: hidden;
 }
 
+.main-menu {
+	background-color: #e4d3ed;
+	overflow: hidden;
+}
+
 .logo {
 	width: 10%;
 	height: 10%;
@@ -15,4 +20,5 @@ body {
 
 #menu a {
 	color: #6E338B;
+	padding: 10px;
 }
