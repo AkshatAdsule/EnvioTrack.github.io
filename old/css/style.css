@@ -1,0 +1,40 @@
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+	font-family: "Helvetica", sans-serif;
+	position: relative;
+}
+
+#overflow-wrapper {
+	overflow: hidden;
+}
+
+.main-menu {
+	background-color: #e4d3ed;
+	overflow: hidden;
+}
+
+.logo {
+	width: 10%;
+	height: 10%;
+	padding: 10px;
+}
+
+#menu a {
+	color: #6E338B;
+	padding: 10px;
+}
+
+.full-height {
+    width: 100%;
+    height: 100vh;
+}
+
+.leftish {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+}
