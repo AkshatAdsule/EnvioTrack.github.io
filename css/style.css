@@ -2,3 +2,17 @@ body {
 	font-family: "Helvetica", sans-serif;
 	position: relative;
 }
+
+#overflow-wrapper {
+	overflow: hidden;
+}
+
+.logo {
+	width: 10%;
+	height: 10%;
+	padding: 10px;
+}
+
+#menu a {
+	color: #6E338B;
+}
