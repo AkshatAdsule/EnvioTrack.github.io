@@ -198,7 +198,7 @@ $(document).ready(function() {
 });
 
 var rate_of_rain = 1000;
-var logo_batch = 2;
+var logo_batch = 3;
 var rain_offset_x = 50;
 var rain_offset_y = -200;
 var rain_variance = 300;
@@ -242,7 +242,9 @@ function Logo(starting, size, acceleration) {
   	this.y = starting.y;
   	this.size = size;
   	this.acceleration = acceleration;
-  	this.velocity_x = 10;
+  	var rdm = Math.floor(Math.random()*2);
+  	if(rdm==0) this.velocity_x = 10;
+  	else this.velocity_x = -10;
   	this.velocity_y;
   	this.time = 0;
   	this.img;
