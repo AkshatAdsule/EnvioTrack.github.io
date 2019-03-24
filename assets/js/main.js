@@ -189,3 +189,120 @@
 
 })(jQuery);
 
+$(document).ready(function() {
+
+	$(".button").click(function() {
+		startRaining(rate_of_rain);
+	});
+
+});
+
+var rate_of_rain = 1000;
+var logo_batch = 2;
+var rain_offset_x = 50;
+var rain_offset_y = -200;
+var rain_variance = 300;
+var min_logo_size = 30;
+var logo_size_variance = 10;
+var acceleration = 10;
+var logo_death_time = 15000;
+var logo_refresh_rate = 200;
+
+function startRaining(wait) {
+  	rainLogos(Math.floor(logo_batch * Math.random()));
+  	setTimeout(function() {
+    	startRaining(wait)
+  	}, wait);
+}
+
+function rainLogos(num) {
+  	while(num) {
+    	num--;
+    	rainLogo({
+      		x: -rain_offset_x + Math.floor(Math.random() * (screen.width + 2 * rain_offset_x)),
+      		y: rain_offset_y - Math.floor(Math.random() * rain_variance)
+    	});
+  	}
+}
+
+function rainLogo(starting, size) {
+  	var size = size ? size : min_logo_size + Math.floor(Math.random() * logo_size_variance);
+  	var logo = new Logo(starting, size, acceleration);
+  	logo.fall();
+  	setTimeout(function() {
+    	logo.die()
+ 	}.bind(this), logo_death_time);
+  	return logo;
+}
+
+window.rainLogo = rainLogo;
+
+function Logo(starting, size, acceleration) {
+  	this.x = starting.x;
+  	this.y = starting.y;
+  	this.size = size;
+  	this.acceleration = acceleration;
+  	this.velocity_x = 100;
+  	this.velocity_y;
+  	this.time = 0;
+  	this.img;
+  	this.moving = true;
+  	this.time_interval = logo_refresh_rate;
+  	this.img = $(loadLogo());
+  	$("body").append(this.img);
+  	this.img.css({
+	    zIndex: Math.floor(Math.random() * 4),
+	    transition: "0.3s linear",
+	    width: this.size,
+	    position: "fixed",
+	    top: this.y,
+	    left: this.x
+  	});
+}
+
+function loadLogo() {
+	var rnd = Math.floor(Math.random()*3);
+	if(rnd == 0) {
+		return "<img class='spin' src='images/small-logo.png'>";
+	}
+	else if(rnd == 1){
+		return "<img class='spin' src='images/chu.jpg'>";
+	}
+	else {
+		return "<img class='spin' src='images/chuthink.jpg'>";
+	}
+}
+
+Logo.prototype.fall = function() {
+
+  	this.img.css({
+    	top: this.calcY()
+  	});
+
+  	if (this.moving) {
+	    setTimeout(function() {
+	      	this.fall();
+   		}.bind(this), this.time_interval);
+  	}
+}
+
+Logo.prototype.calcY = function() {
+
+	this.y = 1/2 * this.acceleration * (this.time * this.time);
+  	this.time += this.time_interval * 0.001;
+  	return this.y;
+}
+
+//doesn't work?
+Logo.prototype.calcX = function() {
+	if(this.x + this.velocity_x < 0 || this.x + this.velocity_x > screen.width) {
+		this.velocity_x *= -1;
+		console.log("switch");
+	}
+ 	return (this.x + this.velocity_x);
+}
+
+Logo.prototype.die = function() {
+	this.img.remove();
+  	this.moving = false;
+}
