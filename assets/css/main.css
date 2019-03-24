@@ -3891,3 +3891,9 @@ input, select, textarea {
 			}
 
 		}
+
+.rightish {
+	left: 40%;
+	width: 10%;
+	height: 10%;
+}
