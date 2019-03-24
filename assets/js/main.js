@@ -193,9 +193,16 @@ $(document).ready(function() {
 
 	$(".button").click(function() {
 		startRaining(rate_of_rain);
+		return;
 	});
 
+	$(".redirect").click(redirect);
+
 });
+
+function redirect() {
+	window.open("https://github.com/TylerLafayette/auta", "_blank");
+}
 
 var rate_of_rain = 1000;
 var logo_batch = 3;
