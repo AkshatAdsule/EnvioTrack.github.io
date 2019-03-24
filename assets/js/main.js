@@ -242,7 +242,7 @@ function Logo(starting, size, acceleration) {
   	this.y = starting.y;
   	this.size = size;
   	this.acceleration = acceleration;
-  	this.velocity_x = 100;
+  	this.velocity_x = 10;
   	this.velocity_y;
   	this.time = 0;
   	this.img;
@@ -276,7 +276,8 @@ function loadLogo() {
 Logo.prototype.fall = function() {
 
   	this.img.css({
-    	top: this.calcY()
+    	top: this.calcY(),
+    	left: this.calcX()
   	});
 
   	if (this.moving) {
@@ -293,13 +294,17 @@ Logo.prototype.calcY = function() {
   	return this.y;
 }
 
-//doesn't work?
 Logo.prototype.calcX = function() {
 	if(this.x + this.velocity_x < 0 || this.x + this.velocity_x > screen.width) {
 		this.velocity_x *= -1;
-		console.log("switch");
 	}
- 	return (this.x + this.velocity_x);
+
+	this.x = this.x + this.time*this.velocity_x;
+
+	if(this.x < 0 - this.width*1.2) this.x = 0;
+	else if(this.x + this.width*1.2 > screen.width) this.x = screen.width - this.width*1.2;
+
+ 	return this.x;
 }
 
 Logo.prototype.die = function() {
